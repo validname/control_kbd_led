@@ -1,21 +1,27 @@
+# What is this
 
-========== How to build this utility
+This small utility to control LEDs on keyboard under Linux. It uses /dev/input API.
 
----- Ubuntu Linux 10.04 LTS
+## How to build
 
+### Ubuntu Linux 10.04 LTS
+
+```bash
 gcc -I/usr/include -I/usr/src/linux-headers-`uname -r`/include/ -I/usr/src/linux-headers-`uname -r`/arch/x86/include -o control_kbd_led control_kbd_led.c
+```
 
----- OpenWRT 12.09-beta, r33312 (in buildroot)
+### OpenWRT 12.09-beta, r33312 (in buildroot)
 
 1. Prepare OpenWRT buildroot.
    Here is a tutorial: http://wiki.openwrt.org/doc/howto/buildroot.exigence
+
    Also you will get toolchain within this buildroot.
 2. Prepare build script with variables TOOLCHAIN_PATH and STAGING_DIR.
 3. Build using gcc from toolchain.
 
 My example of build script:
 
-#######
+```bash
 TOOLCHAIN_PATH=/fakeroot/OpenWRT/buildroot/attitude_adjustment/staging_dir/toolchain-mips_r2_gcc-4.6-linaro_uClibc-0.9.33.2
 OPT_ROOT=/fakeroot/OpenWRT/buildroot/opt
 export STAGING_DIR=$TOOLCHAIN_PATH
@@ -34,4 +40,4 @@ export LDFLAGS=-L$TOOLCHAIN_PATH/lib
 
 $CC -I${TOOLCHAIN_PATH}/usr/include -o control_kbd_led control_kbd_led.c
 $TOOLCHAIN_PATH/bin/mips-openwrt-linux-strip control_kbd_led
-#######
+```
