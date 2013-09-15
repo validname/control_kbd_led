@@ -1,6 +1,6 @@
 # What is this
 
-This small utility to control LEDs on keyboard under Linux. It uses /dev/input API.
+This small utility is for control LEDs on keyboard under Linux. It uses /dev/input API.
 
 ## How to use
 
