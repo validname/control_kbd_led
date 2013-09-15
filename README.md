@@ -2,6 +2,15 @@
 
 This small utility to control LEDs on keyboard under Linux. It uses /dev/input API.
 
+## How to use
+
+    control_kbd_led event_file c|n|s 0|1
+
+Where:
+* event_file is /dev/input/event* file
+* led_num is 'c' for CAPS_LOCK, 'n' for NUM_LOCK and 's' for SCROLL_LOCK
+* '1' to switch LED on, '0' to switch LED off.
+
 ## How to build
 
 ### Ubuntu Linux 10.04 LTS
@@ -40,4 +49,18 @@ export LDFLAGS=-L$TOOLCHAIN_PATH/lib
 
 $CC -I${TOOLCHAIN_PATH}/usr/include -o control_kbd_led control_kbd_led.c
 $TOOLCHAIN_PATH/bin/mips-openwrt-linux-strip control_kbd_led
+```
+
+## How to find matching event file
+
+See at /proc/bus/input/devices to find you input devices.
+
+My example (find event file for certain keyboard (product_id=0x1603) from certain manufacterer (vendor_id=0x04d9)):
+* grab all matching devices (more than one maybe)
+* get all handler / LED info
+* get only one 'handler' line before 'LED' line
+* match info about event file
+
+```bash
+cat /proc/bus/input/devices | grep -A 10 'Vendor=04d9 Product=1603'| grep -E '^(H: Handlers=|B: LED=)'| grep -B1 -E '^B: LED='| grep '^H: Handlers='| grep -o -E 'event[0-9]+'
 ```
