@@ -10,7 +10,7 @@ int main( int argc, char **argv) {
 	struct input_event ev; /* the event */
 
 	if( argc < 4 ) {
-		fprintf(stderr, "Usage: %s event_file c|n|s 0|1\n\twhere led_num is 'c' for CAPS_LOCK, 'n' for NUM_LOCK and 's' for SCROLL_LOCK\n\t'1' to LED on, '0' to LED off.\n", argv[0]);
+		fprintf(stderr, "Usage: %s event_file c|n|s 0|1\n\twhere event_file is /dev/input/event* file\n\tled_num is 'c' for CAPS_LOCK, 'n' for NUM_LOCK and 's' for SCROLL_LOCK\n\t'1' to switch LED on, '0' to switch LED off.\n", argv[0]);
 		return 1;
 	}
 
